@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Python Mastery — Complete Developer Course</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0b0c0f; --bg2: #111318; --bg3: #181b22; --card: #1a1d26;
+    --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0; --muted: #7b8097; --accent: #4f8ef7; --accent2: #7c5cf6;
+    --green: #3dd68c; --amber: #f5a623; --coral: #f06060; --teal: #2dd4bf; --pink: #e879f9;
+    --font: 'Space Grotesk', sans-serif; --mono: 'JetBrains Mono', monospace; --r: 10px; --r2: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; font-size: 15px; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(11,12,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { font-size: 17px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 0; }
+  .nav-links a { color: var(--muted); font-size: 13px; text-decoration: none; padding: 6px 14px; border-radius: 6px; transition: all .2s; }
+  .nav-links a:hover { color: var(--text); background: var(--bg3); }
+  .hero { padding: 90px 2rem 70px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .hero-badge { display: inline-block; background: linear-gradient(135deg, rgba(79,142,247,0.15), rgba(124,92,246,0.15)); border: 1px solid rgba(79,142,247,0.3); border-radius: 100px; padding: 5px 16px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 24px; }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .hero h1 span { background: linear-gradient(135deg, var(--accent), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: var(--muted); max-width: 600px; margin: 0 auto 36px; }
+  .hero-stats { border: 1px solid var(--border); border-radius: var(--r2); overflow: hidden; display: inline-flex; }
+  .hero-stat { padding: 14px 28px; border-right: 1px solid var(--border); }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num { font-size: 22px; font-weight: 700; color: var(--text); }
+  .hero-stat-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  section { max-width: 1100px; margin: 0 auto; padding: 64px 2rem; }
+  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-bottom: 10px; }
+  .section-title { font-size: clamp(24px, 4vw, 38px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-sub { color: var(--muted); font-size: 16px; max-width: 600px; margin-bottom: 40px; }
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 22px; transition: border-color .2s, transform .2s; cursor: default; }
+  .card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .ctag { background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.2); border-radius: 4px; padding: 2px 8px; font-size: 11px; color: var(--accent); font-family: var(--mono); }
+  .ctag.g { background: rgba(61,214,140,0.1); border-color: rgba(61,214,140,0.2); color: var(--green); }
+  .ctag.a { background: rgba(245,166,35,0.1); border-color: rgba(245,166,35,0.2); color: var(--amber); }
+  .ctag.p { background: rgba(232,121,249,0.1); border-color: rgba(232,121,249,0.2); color: var(--pink); }
+  .ctag.t { background: rgba(45,212,191,0.1); border-color: rgba(45,212,191,0.2); color: var(--teal); }
+  .ctag.r { background: rgba(240,96,96,0.1); border-color: rgba(240,96,96,0.2); color: var(--coral); }
+  .code-block { background: #0d0f17; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 20px 0; }
+  .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+  .code-lang { font-size: 11px; color: var(--muted); font-family: var(--mono); font-weight: 500; }
+  .code-dots { display: flex; gap: 5px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  pre { padding: 18px; font-family: var(--mono); font-size: 13px; line-height: 1.7; overflow-x: auto; }
+  .kw { color: #c792ea; } .fn { color: #82aaff; } .str { color: #c3e88d; }
+  .cm { color: #546e7a; font-style: italic; } .num { color: #f78c6c; } .cls { color: #ffcb6b; } .blt { color: #89ddff; }
+  .tool-table { width: 100%; border-collapse: collapse; }
+  .tool-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 500; }
+  .tool-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+  .tool-table tr:last-child td { border-bottom: none; }
+  .tool-table tr:hover td { background: var(--bg3); }
+  .tool-name { font-family: var(--mono); color: var(--accent); font-weight: 500; font-size: 13px; }
+  .tool-badge { display: inline-block; padding: 1px 7px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .tb-must { background: rgba(61,214,140,0.15); color: var(--green); }
+  .tb-rec { background: rgba(79,142,247,0.15); color: var(--accent); }
+  .diagram-wrap { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2); padding: 28px; margin: 24px 0; overflow-x: auto; }
+  .int-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .int-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r); padding: 16px; }
+  .int-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .int-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .int-card-title { font-size: 14px; font-weight: 600; }
+  .int-card-libs { display: flex; flex-wrap: wrap; gap: 5px; }
+  .ilib { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-family: var(--mono); color: var(--muted); }
+  .res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .res-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 16px; }
+  .res-cat { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: 8px; }
+  .res-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .res-item:last-child { border-bottom: none; }
+  .res-link { color: var(--accent); text-decoration: none; }
+  .res-desc { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  footer { text-align: center; padding: 48px 2rem; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  .stepper-nav { display: flex; justify-content: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .step-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; font-size: 12px; color: var(--muted); cursor: pointer; font-family: var(--font); transition: all .2s; }
+  .step-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+  .scroll-top { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; font-size: 18px; border: none; opacity: 0; transition: opacity .3s; z-index: 200; }
+  .scroll-top.visible { opacity: 1; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">🐍 PythonMastery</div>
+  <div class="nav-links">
+    <a href="#roadmap">Roadmap</a><a href="#core">Core</a><a href="#libraries">Libraries</a><a href="#tools">Tools</a><a href="#integrations">Integrations</a><a href="#resources">Resources</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-badge">Complete Developer Course</div>
+  <h1>Master <span>Python</span><br/>from Zero to Production</h1>
+  <p>A structured, comprehensive guide — beginner to advanced — covering the language, ecosystem, libraries, tooling, and production-ready integrations.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">10</div><div class="hero-stat-lbl">Phases</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">60+</div><div class="hero-stat-lbl">Libraries</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">40+</div><div class="hero-stat-lbl">Tools</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">∞</div><div class="hero-stat-lbl">Integrations</div></div>
+  </div>
+</div>
+<section id="roadmap">
+  <div class="section-label">Learning Path</div>
+  <div class="section-title">Your Python Roadmap</div>
+  <p class="section-sub">10 structured phases taking you from absolute beginner to production-ready developer.</p>
+  <div class="stepper-nav">
+    <button class="step-btn active" onclick="showPhase(0)">P1 Basics</button>
+    <button class="step-btn" onclick="showPhase(1)">P2 Data</button>
+    <button class="step-btn" onclick="showPhase(2)">P3 OOP</button>
+    <button class="step-btn" onclick="showPhase(3)">P4 I/O & APIs</button>
+    <button class="step-btn" onclick="showPhase(4)">P5 Advanced</button>
+    <button class="step-btn" onclick="showPhase(5)">P6 Testing</button>
+    <button class="step-btn" onclick="showPhase(6)">P7 Web</button>
+    <button class="step-btn" onclick="showPhase(7)">P8 DB</button>
+    <button class="step-btn" onclick="showPhase(8)">P9 ML/AI</button>
+    <button class="step-btn" onclick="showPhase(9)">P10 Prod</button>
+  </div>
+  <div id="phaseContent">
+    <div class="step-panel active" id="phase-0"><div class="cards">
+      <div class="card"><div class="card-icon">🔤</div><div class="card-title">Variables & Types</div><div class="card-desc">int, float, str, bool, None. Dynamic typing. Type hints. f-strings and string formatting.</div><div class="card-tags"><span class="ctag">int</span><span class="ctag">str</span><span class="ctag">bool</span><span class="ctag">f-string</span></div></div>
+      <div class="card"><div class="card-icon">🔀</div><div class="card-title">Control Flow</div><div class="card-desc">if/elif/else, for loops, while loops, break/continue/pass. Comprehensions preview.</div><div class="card-tags"><span class="ctag">if</span><span class="ctag">for</span><span class="ctag">while</span></div></div>
+      <div class="card"><div class="card-icon">⚙️</div><div class="card-title">Functions</div><div class="card-desc">def, return, *args, **kwargs, default params, scope (LEGB), docstrings, lambda basics.</div><div class="card-tags"><span class="ctag">def</span><span class="ctag">lambda</span><span class="ctag">*args</span></div></div>
+      <div class="card"><div class="card-icon">💥</div><div class="card-title">Exceptions</div><div class="card-desc">try/except/finally, raising exceptions, custom exceptions. Exception hierarchy.</div><div class="card-tags"><span class="ctag">try</span><span class="ctag">except</span><span class="ctag">raise</span></div></div>
+    </div>
+    <div class="code-block"><div class="code-header"><div class="code-dots"><div class="dot" style="background:#f06060"></div><div class="dot" style="background:#f5a623"></div><div class="dot" style="background:#3dd68c"></div></div><div class="code-lang">python · phase 1 example</div></div>
+    <pre><span class="cm"># Variables and types</span>
+name: <span class="blt">str</span> = <span class="str">"Sudharsan"</span>
+age: <span class="blt">int</span> = <span class="num">25</span>
+score: <span class="blt">float</span> = <span class="num">9.8</span>
+<span class="fn">print</span>(<span class="str">f"Hello {name}, you scored {score:.1f}"</span>)
+
+<span class="kw">def</span> <span class="fn">greet</span>(name: <span class="blt">str</span>, formal: <span class="blt">bool</span> = <span class="blt">False</span>) -> <span class="blt">str</span>:
+    <span class="str">"""Return a greeting string."""</span>
+    prefix = <span class="str">"Dear"</span> <span class="kw">if</span> formal <span class="kw">else</span> <span class="str">"Hey"</span>
+    <span class="kw">return</span> <span class="str">f"{prefix} {name}!"</span>
+
+<span class="kw">try</span>:
+    result = <span class="num">10</span> / <span class="num">0</span>
+<span class="kw">except</span> <span class="cls">ZeroDivisionError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="str">f"Error: {e}"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="str">"Always runs"</span>)</pre></div></div>
+    <div class="step-panel" id="phase-1"><div class="cards">
+      <div class="card"><div class="card-icon">📋</div><div class="card-title">Lists & Tuples</div><div class="card-desc">Mutable vs immutable. Slicing, indexing, list methods. List comprehensions. Nested lists.</div><div class="card-tags"><span class="ctag">list</span><span class="ctag">tuple</span><span class="ctag">slice</span></div></div>
+      <div class="card"><div class="card-icon">🗂️</div><div class="card-title">Dicts & Sets</div><div class="card-desc">dict comprehensions, .get(), .items(), .update(). Sets for uniqueness, set operations.</div><div class="card-tags"><span class="ctag">dict</span><span class="ctag">set</span></div></div>
+      <div class="card"><div class="card-icon">🔧</div><div class="card-title">Built-in Functions</div><div class="card-desc">map, filter, zip, enumerate, sorted, reversed, any, all, sum, min, max.</div><div class="card-tags"><span class="ctag">map</span><span class="ctag">filter</span><span class="ctag">zip</span></div></div>
+      <div class="card"><div class="card-icon">🎭</div><div class="card-title">Iterators & Generators</div><div class="card-desc">iter(), next(), yield, generator expressions. Memory-efficient iteration.</div><div class="card-tags"><span class="ctag">yield</span><span class="ctag">generator</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-2"><div class="cards">
+      <div class="card"><div class="card-icon">🏗️</div><div class="card-title">Classes & OOP</div><div class="card-desc">__init__, __str__, __repr__, __eq__. Inheritance, super(), multiple inheritance, MRO.</div><div class="card-tags"><span class="ctag g">class</span><span class="ctag g">__init__</span><span class="ctag g">super()</span></div></div>
+      <div class="card"><div class="card-icon">🎨</div><div class="card-title">Decorators</div><div class="card-desc">@property, @staticmethod, @classmethod, @functools.wraps. Custom decorator factories.</div><div class="card-tags"><span class="ctag g">@property</span><span class="ctag g">@staticmethod</span></div></div>
+      <div class="card"><div class="card-icon">📦</div><div class="card-title">Modules & Packages</div><div class="card-desc">import, from...import, __init__.py, relative imports, namespaces, packaging.</div><div class="card-tags"><span class="ctag g">import</span><span class="ctag g">__init__.py</span></div></div>
+      <div class="card"><div class="card-icon">🧩</div><div class="card-title">Dataclasses & Protocols</div><div class="card-desc">@dataclass, field(), frozen=True. Protocol, ABC, abstract methods.</div><div class="card-tags"><span class="ctag g">@dataclass</span><span class="ctag g">Protocol</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-3"><div class="cards">
+      <div class="card"><div class="card-icon">📁</div><div class="card-title">File I/O</div><div class="card-desc">open(), context managers, pathlib.Path, CSV, JSON, YAML.</div><div class="card-tags"><span class="ctag a">pathlib</span><span class="ctag a">json</span><span class="ctag a">csv</span></div></div>
+      <div class="card"><div class="card-icon">🌐</div><div class="card-title">HTTP & REST APIs</div><div class="card-desc">requests library, GET/POST/PUT/DELETE, headers, auth, sessions, rate limiting.</div><div class="card-tags"><span class="ctag a">requests</span><span class="ctag a">httpx</span></div></div>
+      <div class="card"><div class="card-icon">⚡</div><div class="card-title">Async I/O</div><div class="card-desc">asyncio, async/await, aiohttp, aiofiles. Event loop, coroutines, tasks, gather().</div><div class="card-tags"><span class="ctag a">asyncio</span><span class="ctag a">await</span></div></div>
+      <div class="card"><div class="card-icon">🔒</div><div class="card-title">Environment & Config</div><div class="card-desc">os.environ, .env files with python-dotenv, pydantic Settings.</div><div class="card-tags"><span class="ctag a">dotenv</span><span class="ctag a">pydantic</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-4"><div class="cards">
+      <div class="card"><div class="card-icon">🧵</div><div class="card-title">Concurrency & Parallelism</div><div class="card-desc">threading (GIL!), multiprocessing, concurrent.futures, asyncio deep dive.</div><div class="card-tags"><span class="ctag r">threading</span><span class="ctag r">multiprocessing</span></div></div>
+      <div class="card"><div class="card-icon">🔍</div><div class="card-title">Metaclasses & Descriptors</div><div class="card-desc">type(), __new__, __init_subclass__, descriptor protocol.</div><div class="card-tags"><span class="ctag r">metaclass</span><span class="ctag r">descriptor</span></div></div>
+      <div class="card"><div class="card-icon">🏎️</div><div class="card-title">Performance & Profiling</div><div class="card-desc">cProfile, line_profiler, memory_profiler, timeit, __slots__, Cython basics.</div><div class="card-tags"><span class="ctag r">cProfile</span><span class="ctag r">__slots__</span></div></div>
+      <div class="card"><div class="card-icon">✍️</div><div class="card-title">Type System Deep Dive</div><div class="card-desc">Union, Optional, TypeVar, Generic, Protocol, Literal, TypedDict. mypy & pyright.</div><div class="card-tags"><span class="ctag r">TypeVar</span><span class="ctag r">Generic</span><span class="ctag r">mypy</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-5"><div class="cards">
+      <div class="card"><div class="card-icon">🧪</div><div class="card-title">pytest</div><div class="card-desc">Test functions, fixtures, parametrize, marks, conftest.py, coverage reports.</div><div class="card-tags"><span class="ctag">pytest</span><span class="ctag">fixtures</span><span class="ctag">coverage</span></div></div>
+      <div class="card"><div class="card-icon">🎭</div><div class="card-title">Mocking</div><div class="card-desc">unittest.mock, MagicMock, patch(), side_effect. Mocking APIs, databases.</div><div class="card-tags"><span class="ctag">mock</span><span class="ctag">patch</span></div></div>
+      <div class="card"><div class="card-icon">🐛</div><div class="card-title">Debugging</div><div class="card-desc">pdb/ipdb, breakpoint(), traceback module, logging (handlers, formatters, levels).</div><div class="card-tags"><span class="ctag">pdb</span><span class="ctag">logging</span></div></div>
+      <div class="card"><div class="card-icon">🚦</div><div class="card-title">Code Quality</div><div class="card-desc">black, ruff, isort, flake8, bandit (security), pre-commit hooks, CI gates.</div><div class="card-tags"><span class="ctag">black</span><span class="ctag">ruff</span><span class="ctag">bandit</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-6"><div class="cards">
+      <div class="card"><div class="card-icon">⚡</div><div class="card-title">FastAPI</div><div class="card-desc">Routes, Pydantic models, dependency injection, OpenAPI docs, WebSockets.</div><div class="card-tags"><span class="ctag a">FastAPI</span><span class="ctag a">Pydantic</span><span class="ctag a">uvicorn</span></div></div>
+      <div class="card"><div class="card-icon">🌿</div><div class="card-title">Django</div><div class="card-desc">ORM, migrations, admin panel, views, templates, forms, DRF.</div><div class="card-tags"><span class="ctag a">Django</span><span class="ctag a">DRF</span><span class="ctag a">ORM</span></div></div>
+      <div class="card"><div class="card-icon">🍶</div><div class="card-title">Flask</div><div class="card-desc">Minimal microframework. Blueprints, Jinja2 templates, Flask-SQLAlchemy.</div><div class="card-tags"><span class="ctag a">Flask</span><span class="ctag a">Jinja2</span></div></div>
+      <div class="card"><div class="card-icon">🔐</div><div class="card-title">Auth & Security</div><div class="card-desc">JWT (python-jose), OAuth2, bcrypt, HTTPS/TLS, CORS, rate limiting.</div><div class="card-tags"><span class="ctag a">JWT</span><span class="ctag a">OAuth2</span><span class="ctag a">bcrypt</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-7"><div class="cards">
+      <div class="card"><div class="card-icon">🗄️</div><div class="card-title">SQL with SQLAlchemy</div><div class="card-desc">Core and ORM mode. Models, relationships, migrations with Alembic.</div><div class="card-tags"><span class="ctag t">SQLAlchemy</span><span class="ctag t">Alembic</span></div></div>
+      <div class="card"><div class="card-icon">🐘</div><div class="card-title">PostgreSQL / MySQL</div><div class="card-desc">psycopg2/asyncpg, transactions, indexes, query optimization.</div><div class="card-tags"><span class="ctag t">psycopg2</span><span class="ctag t">asyncpg</span></div></div>
+      <div class="card"><div class="card-icon">🍃</div><div class="card-title">NoSQL</div><div class="card-desc">MongoDB (pymongo, motor), Redis (redis-py, aioredis), Elasticsearch basics.</div><div class="card-tags"><span class="ctag t">pymongo</span><span class="ctag t">redis</span></div></div>
+      <div class="card"><div class="card-icon">🦆</div><div class="card-title">ORM Alternatives</div><div class="card-desc">Tortoise ORM (async-first), Beanie (MongoDB ODM), Peewee (lightweight).</div><div class="card-tags"><span class="ctag t">Tortoise</span><span class="ctag t">Beanie</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-8"><div class="cards">
+      <div class="card"><div class="card-icon">🔢</div><div class="card-title">NumPy & Pandas</div><div class="card-desc">ndarray, vectorized ops, broadcasting. DataFrame, Series, groupby, merge.</div><div class="card-tags"><span class="ctag p">numpy</span><span class="ctag p">pandas</span></div></div>
+      <div class="card"><div class="card-icon">🤖</div><div class="card-title">Scikit-learn</div><div class="card-desc">Pipelines, preprocessing, classification, regression, clustering, cross-validation.</div><div class="card-tags"><span class="ctag p">sklearn</span><span class="ctag p">Pipeline</span></div></div>
+      <div class="card"><div class="card-icon">🔥</div><div class="card-title">PyTorch & TensorFlow</div><div class="card-desc">Tensors, autograd, neural networks, training loops, datasets/dataloaders.</div><div class="card-tags"><span class="ctag p">torch</span><span class="ctag p">tensorflow</span></div></div>
+      <div class="card"><div class="card-icon">🤗</div><div class="card-title">HuggingFace & LLM APIs</div><div class="card-desc">transformers, pipeline API, fine-tuning. OpenAI SDK, Anthropic SDK, LangChain.</div><div class="card-tags"><span class="ctag p">transformers</span><span class="ctag p">openai</span><span class="ctag p">anthropic</span></div></div>
+    </div></div>
+    <div class="step-panel" id="phase-9"><div class="cards">
+      <div class="card"><div class="card-icon">🐳</div><div class="card-title">Docker & Containers</div><div class="card-desc">Dockerfile for Python apps, multi-stage builds, docker-compose, health checks.</div><div class="card-tags"><span class="ctag t">Docker</span><span class="ctag t">compose</span></div></div>
+      <div class="card"><div class="card-icon">☁️</div><div class="card-title">Cloud Deployment</div><div class="card-desc">AWS (Lambda, EC2, ECS, S3 with boto3), GCP, Azure. Serverless with Mangum.</div><div class="card-tags"><span class="ctag t">boto3</span><span class="ctag t">Lambda</span><span class="ctag t">EC2</span></div></div>
+      <div class="card"><div class="card-icon">📊</div><div class="card-title">Observability</div><div class="card-desc">structlog, OpenTelemetry, Prometheus/Grafana, Sentry for error tracking.</div><div class="card-tags"><span class="ctag t">structlog</span><span class="ctag t">Sentry</span></div></div>
+      <div class="card"><div class="card-icon">🔄</div><div class="card-title">CI/CD & Automation</div><div class="card-desc">GitHub Actions, pre-commit hooks, tox, nox, PyPI publishing, semantic versioning.</div><div class="card-tags"><span class="ctag t">GitHub Actions</span><span class="ctag t">tox</span></div></div>
+    </div></div>
+  </div>
+</section>
+<hr class="divider"/>
+<section id="libraries">
+  <div class="section-label">Ecosystem</div>
+  <div class="section-title">Essential Libraries</div>
+  <p class="section-sub">The libraries every production Python developer must know, organized by domain.</p>
+  <div class="cards">
+    <div class="card"><div class="card-icon">📊</div><div class="card-title">Data Science Stack</div><div class="card-desc">numpy, pandas, scipy, matplotlib/seaborn, plotly (interactive charts).</div><div class="card-tags"><span class="ctag p">numpy</span><span class="ctag p">pandas</span><span class="ctag p">matplotlib</span><span class="ctag p">plotly</span></div></div>
+    <div class="card"><div class="card-icon">🧠</div><div class="card-title">Machine Learning</div><div class="card-desc">scikit-learn, XGBoost/LightGBM, PyTorch (deep learning), TensorFlow/Keras, JAX.</div><div class="card-tags"><span class="ctag p">sklearn</span><span class="ctag p">torch</span><span class="ctag p">xgboost</span><span class="ctag p">JAX</span></div></div>
+    <div class="card"><div class="card-icon">🌐</div><div class="card-title">Web Frameworks</div><div class="card-desc">FastAPI (async, modern), Django (batteries included), Flask (minimal), Starlette, Litestar.</div><div class="card-tags"><span class="ctag a">FastAPI</span><span class="ctag a">Django</span><span class="ctag a">Flask</span></div></div>
+    <div class="card"><div class="card-icon">🔗</div><div class="card-title">HTTP Clients</div><div class="card-desc">requests (sync), httpx (async+sync, HTTP/2), aiohttp (async, high performance).</div><div class="card-tags"><span class="ctag">requests</span><span class="ctag">httpx</span><span class="ctag">aiohttp</span></div></div>
+    <div class="card"><div class="card-icon">✅</div><div class="card-title">Validation & Config</div><div class="card-desc">Pydantic v2, marshmallow, cerberus, python-dotenv, dynaconf, hydra (ML configs).</div><div class="card-tags"><span class="ctag g">pydantic</span><span class="ctag g">marshmallow</span><span class="ctag g">hydra</span></div></div>
+    <div class="card"><div class="card-icon">💻</div><div class="card-title">CLI Tools</div><div class="card-desc">typer (modern), click (popular), argparse (stdlib), rich (beautiful output), tqdm (progress).</div><div class="card-tags"><span class="ctag">typer</span><span class="ctag">click</span><span class="ctag">rich</span><span class="ctag">tqdm</span></div></div>
+    <div class="card"><div class="card-icon">📬</div><div class="card-title">Task Queues</div><div class="card-desc">Celery (most used, Redis/RabbitMQ), arq (async, Redis), dramatiq, RQ, APScheduler.</div><div class="card-tags"><span class="ctag t">Celery</span><span class="ctag t">arq</span><span class="ctag t">RQ</span></div></div>
+    <div class="card"><div class="card-icon">🕷️</div><div class="card-title">Web Scraping</div><div class="card-desc">beautifulsoup4 + lxml (parsing), scrapy (full framework), playwright/selenium.</div><div class="card-tags"><span class="ctag r">scrapy</span><span class="ctag r">bs4</span><span class="ctag r">playwright</span></div></div>
+    <div class="card"><div class="card-icon">🔐</div><div class="card-title">Security</div><div class="card-desc">cryptography (industry standard), bcrypt, python-jose (JWT), passlib, paramiko (SSH).</div><div class="card-tags"><span class="ctag r">cryptography</span><span class="ctag r">bcrypt</span><span class="ctag r">jose</span></div></div>
+    <div class="card"><div class="card-icon">🤖</div><div class="card-title">AI / LLM Integration</div><div class="card-desc">anthropic SDK, openai SDK, LangChain, LlamaIndex (RAG), HuggingFace transformers.</div><div class="card-tags"><span class="ctag p">anthropic</span><span class="ctag p">LangChain</span><span class="ctag p">transformers</span></div></div>
+    <div class="card"><div class="card-icon">🧪</div><div class="card-title">Testing</div><div class="card-desc">pytest, hypothesis (property-based), faker (test data), factory-boy, freezegun.</div><div class="card-tags"><span class="ctag g">pytest</span><span class="ctag g">hypothesis</span><span class="ctag g">faker</span></div></div>
+  </div>
+</section>
+<hr class="divider"/>
+<section id="tools">
+  <div class="section-label">Developer Tooling</div>
+  <div class="section-title">Tools & Websites Every Python Dev Needs</div>
+  <p class="section-sub">From environment management to production monitoring — the full toolkit.</p>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:32px">
+    <table class="tool-table">
+      <thead><tr><th>Tool</th><th>Category</th><th>What it does</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tool-name">uv</span></td><td style="color:var(--muted);font-size:12px">Package Manager</td><td style="color:var(--muted);font-size:12px">Blazing fast Python package/project manager (Rust-based). Replaces pip, venv, pyenv.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">poetry</span></td><td style="color:var(--muted);font-size:12px">Package Manager</td><td style="color:var(--muted);font-size:12px">Dependency management + packaging. pyproject.toml, lock files, virtual envs.</td><td><span class="tool-badge tb-rec">Rec</span></td></tr>
+        <tr><td><span class="tool-name">pyenv</span></td><td style="color:var(--muted);font-size:12px">Python Versions</td><td style="color:var(--muted);font-size:12px">Switch between Python versions (3.10, 3.11, 3.12) per project.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">black</span></td><td style="color:var(--muted);font-size:12px">Formatter</td><td style="color:var(--muted);font-size:12px">Opinionated code formatter. Zero config. "The uncompromising formatter."</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">ruff</span></td><td style="color:var(--muted);font-size:12px">Linter</td><td style="color:var(--muted);font-size:12px">Extremely fast linter (Rust). Replaces flake8, isort, pyupgrade, and more.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">mypy / pyright</span></td><td style="color:var(--muted);font-size:12px">Type Checker</td><td style="color:var(--muted);font-size:12px">Static type checking. Catch bugs before runtime.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">pytest</span></td><td style="color:var(--muted);font-size:12px">Testing</td><td style="color:var(--muted);font-size:12px">The standard Python test framework. Fixtures, parametrize, plugins galore.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">pre-commit</span></td><td style="color:var(--muted);font-size:12px">Git Hooks</td><td style="color:var(--muted);font-size:12px">Run linters/formatters automatically before every commit.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">VS Code + Pylance</span></td><td style="color:var(--muted);font-size:12px">IDE</td><td style="color:var(--muted);font-size:12px">Best free IDE. IntelliSense, type checking, debugger, Git integration.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">PyCharm</span></td><td style="color:var(--muted);font-size:12px">IDE</td><td style="color:var(--muted);font-size:12px">Professional Python IDE. Excellent refactoring, Django support, built-in profiler.</td><td><span class="tool-badge tb-rec">Rec</span></td></tr>
+        <tr><td><span class="tool-name">Jupyter / JupyterLab</span></td><td style="color:var(--muted);font-size:12px">Notebook</td><td style="color:var(--muted);font-size:12px">Interactive notebooks. Essential for data science, ML experimentation.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">Docker</span></td><td style="color:var(--muted);font-size:12px">Container</td><td style="color:var(--muted);font-size:12px">Package your app + dependencies into containers. Essential for production.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">GitHub Actions</span></td><td style="color:var(--muted);font-size:12px">CI/CD</td><td style="color:var(--muted);font-size:12px">Automate test, lint, deploy pipelines on every push. Free for public repos.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+        <tr><td><span class="tool-name">Sentry</span></td><td style="color:var(--muted);font-size:12px">Error Tracking</td><td style="color:var(--muted);font-size:12px">Capture and track errors in production. Full stack traces, user context.</td><td><span class="tool-badge tb-rec">Rec</span></td></tr>
+        <tr><td><span class="tool-name">Redis</span></td><td style="color:var(--muted);font-size:12px">Cache/Queue</td><td style="color:var(--muted);font-size:12px">In-memory data store. Caching, session storage, task queues with Celery/RQ.</td><td><span class="tool-badge tb-must">Must</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section-label" style="margin-top:32px">Key Websites</div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-cat" style="color:var(--accent)">Official Docs</div>
+      <div class="res-item"><div><a href="https://docs.python.org/3/" class="res-link">docs.python.org</a><div class="res-desc">Official Python 3 documentation — your primary reference</div></div></div>
+      <div class="res-item"><div><a href="https://pypi.org" class="res-link">pypi.org</a><div class="res-desc">Python Package Index — find and publish packages</div></div></div>
+      <div class="res-item"><div><a href="https://peps.python.org" class="res-link">peps.python.org</a><div class="res-desc">Python Enhancement Proposals</div></div></div>
+    </div>
+    <div class="res-card"><div class="res-cat" style="color:var(--green)">Learning</div>
+      <div class="res-item"><div><a href="https://realpython.com" class="res-link">realpython.com</a><div class="res-desc">Best Python tutorials and video courses</div></div></div>
+      <div class="res-item"><div><a href="https://roadmap.sh/python" class="res-link">roadmap.sh/python</a><div class="res-desc">Visual learning roadmap with skill tree</div></div></div>
+      <div class="res-item"><div><a href="https://python.land" class="res-link">python.land</a><div class="res-desc">Beginner to advanced tutorials</div></div></div>
+    </div>
+    <div class="res-card"><div class="res-cat" style="color:var(--amber)">Practice</div>
+      <div class="res-item"><div><a href="https://leetcode.com" class="res-link">leetcode.com</a><div class="res-desc">Algorithms & DSA practice</div></div></div>
+      <div class="res-item"><div><a href="https://exercism.org/tracks/python" class="res-link">exercism.org</a><div class="res-desc">Python exercises with mentored feedback</div></div></div>
+      <div class="res-item"><div><a href="https://colab.research.google.com" class="res-link">Google Colab</a><div class="res-desc">Free GPU-backed Jupyter notebooks</div></div></div>
+    </div>
+    <div class="res-card"><div class="res-cat" style="color:var(--pink)">Community</div>
+      <div class="res-item"><div><a href="https://stackoverflow.com/questions/tagged/python" class="res-link">stackoverflow.com</a><div class="res-desc">Python Q&A — most answered language</div></div></div>
+      <div class="res-item"><div><a href="https://www.reddit.com/r/learnpython" class="res-link">r/learnpython</a><div class="res-desc">Beginner-friendly Python community</div></div></div>
+      <div class="res-item"><div><a href="https://discord.gg/python" class="res-link">discord.gg/python</a><div class="res-desc">Official Python Discord — live help</div></div></div>
+    </div>
+  </div>
+</section>
+<hr class="divider"/>
+<section id="integrations">
+  <div class="section-label">Real-World</div>
+  <div class="section-title">Python Integrations in Production</div>
+  <p class="section-sub">Python connects to everything. Here's the full picture of what you'll integrate with in real projects.</p>
+  <div class="int-grid">
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(79,142,247,0.1)">☁️</div><div class="int-card-title">AWS</div></div><div class="int-card-libs"><span class="ilib">boto3</span><span class="ilib">aiobotocore</span><span class="ilib">moto (test)</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(61,214,140,0.1)">🐘</div><div class="int-card-title">PostgreSQL</div></div><div class="int-card-libs"><span class="ilib">psycopg3</span><span class="ilib">asyncpg</span><span class="ilib">SQLAlchemy</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(240,96,96,0.1)">🔴</div><div class="int-card-title">Redis</div></div><div class="int-card-libs"><span class="ilib">redis-py</span><span class="ilib">aioredis</span><span class="ilib">celery</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(245,166,35,0.1)">🍃</div><div class="int-card-title">MongoDB</div></div><div class="int-card-libs"><span class="ilib">pymongo</span><span class="ilib">motor</span><span class="ilib">beanie</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(232,121,249,0.1)">📨</div><div class="int-card-title">Message Queues</div></div><div class="int-card-libs"><span class="ilib">pika (RabbitMQ)</span><span class="ilib">confluent-kafka</span><span class="ilib">aiokafka</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(79,142,247,0.1)">💳</div><div class="int-card-title">Payments</div></div><div class="int-card-libs"><span class="ilib">stripe</span><span class="ilib">razorpay</span><span class="ilib">paypalrestsdk</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(61,214,140,0.1)">📱</div><div class="int-card-title">Notifications</div></div><div class="int-card-libs"><span class="ilib">twilio (SMS)</span><span class="ilib">firebase-admin</span><span class="ilib">apns2</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(240,96,96,0.1)">🤖</div><div class="int-card-title">AI / LLMs</div></div><div class="int-card-libs"><span class="ilib">anthropic</span><span class="ilib">openai</span><span class="ilib">google-generativeai</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(245,166,35,0.1)">📊</div><div class="int-card-title">Analytics / BI</div></div><div class="int-card-libs"><span class="ilib">pandas</span><span class="ilib">plotly-dash</span><span class="ilib">streamlit</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(232,121,249,0.1)">🔍</div><div class="int-card-title">Search</div></div><div class="int-card-libs"><span class="ilib">elasticsearch-py</span><span class="ilib">meilisearch</span><span class="ilib">typesense</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(45,212,191,0.1)">💬</div><div class="int-card-title">Chat & Bots</div></div><div class="int-card-libs"><span class="ilib">python-telegram-bot</span><span class="ilib">discord.py</span><span class="ilib">slack-sdk</span></div></div>
+    <div class="int-card"><div class="int-card-header"><div class="int-icon" style="background:rgba(124,92,246,0.1)">📈</div><div class="int-card-title">Monitoring</div></div><div class="int-card-libs"><span class="ilib">prometheus-client</span><span class="ilib">opentelemetry</span><span class="ilib">datadog</span></div></div>
+  </div>
+</section>
+<hr class="divider"/>
+<section id="resources">
+  <div class="section-label">Study Plan</div>
+  <div class="section-title">How to Use This Course with Claude</div>
+  <p class="section-sub">You're studying this with Claude — here's exactly how to get the most out of every phase.</p>
+  <div class="cards">
+    <div class="card" style="border-color:rgba(79,142,247,0.3)"><div class="card-icon">💬</div><div class="card-title">Ask Claude to teach each concept</div><div class="card-desc">For every topic, ask: "Explain [topic] to me simply, then show me a real-world Python example."</div></div>
+    <div class="card" style="border-color:rgba(61,214,140,0.3)"><div class="card-icon">🏋️</div><div class="card-title">Request exercises per phase</div><div class="card-desc">Say: "Give me 5 progressively harder exercises for Python decorators with solutions."</div></div>
+    <div class="card" style="border-color:rgba(245,166,35,0.3)"><div class="card-icon">🔍</div><div class="card-title">Code review with Claude</div><div class="card-desc">Paste your code and ask: "Review this for Pythonic style, performance issues, and potential bugs."</div></div>
+    <div class="card" style="border-color:rgba(232,121,249,0.3)"><div class="card-icon">🏗️</div><div class="card-title">Build projects phase by phase</div><div class="card-desc">P1: CLI calculator. P4: Weather API wrapper. P7: REST API with FastAPI. P9: ML classifier. P10: Deploy it.</div></div>
+    <div class="card" style="border-color:rgba(240,96,96,0.3)"><div class="card-icon">❓</div><div class="card-title">Quiz yourself</div><div class="card-desc">Ask: "Quiz me on Python generators — 10 questions, mix of theory and code output prediction."</div></div>
+    <div class="card" style="border-color:rgba(45,212,191,0.3)"><div class="card-icon">🗺️</div><div class="card-title">Go deeper on any section</div><div class="card-desc">Tell Claude: "I want to go deep on [Phase X]. Start from zero and take me to production-level."</div></div>
+  </div>
+</section>
+<footer>
+  <p>Python Mastery Course — Generated with Claude · <a href="https://docs.python.org/3/" style="color:var(--accent);text-decoration:none">docs.python.org</a> is your companion for life</p>
+</footer>
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+function showPhase(idx) {
+  document.querySelectorAll('.step-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  document.querySelectorAll('.step-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+}
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollBtn').classList.toggle('visible', window.scrollY > 400);
+});
+</script>
+</body>
+</html>
